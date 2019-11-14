@@ -1,0 +1,20 @@
+version: 2.1
+description: Run katalon studio test using cirlce-ci 
+
+orbs:
+  katalon_orb:
+    executors:
+      katalon_orb_executor:
+        parameters:
+          version:
+            type: string
+            default: "6.3"
+        docker:
+          - image: katalonstudio/katalon:<<parameters.version>>
+    commands:
+      katalon_orb_command:
+        parameters:
+          katalon_command:
+            type: string
+        steps:
+          - run: katalon-execute.sh <<parameters.katalon_command>>
