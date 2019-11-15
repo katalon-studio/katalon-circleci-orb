@@ -8,7 +8,7 @@ pipeline {
     }
     stage('Public circle-ci orb file') {
       steps{ 
-          sh "circleci orb publish katalon-orb.yml katalon-orb-test/katalonstudio@orb:1.0"
+          sh "circleci orb publish katalon-orb.yml katalon-orb-test/katalonstudio@orb:first"
       }
     }
   }
