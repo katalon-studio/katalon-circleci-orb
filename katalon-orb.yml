@@ -18,7 +18,12 @@ orbs:
           katalon_command:
             type: string
         steps:
-          - checkout
           - run: katalon-execute.sh <<parameters.katalon_command>>
-          - codecov/upload:
-              path: ./report      
+    jobs:
+        katjob:
+            executor: katalon_orb_executor
+            steps:
+              - checkout
+              - katalon_orb_command
+              - codecov/upload:
+                  path: ./report/*  
