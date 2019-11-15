@@ -26,4 +26,4 @@ orbs:
               - checkout
               - katalon_orb_command
               - codecov/upload:
-                  path: ./report/*  
+                  path: ./report/*
