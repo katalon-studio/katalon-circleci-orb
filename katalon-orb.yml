@@ -26,8 +26,3 @@ orbs:
               - katalon_orb_command
               - codecov/upload:
                   path: ./report/*
-workflows:
-  build:
-    jobs:
-      - katalonstudio/katjob:
-          katalon_command: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
