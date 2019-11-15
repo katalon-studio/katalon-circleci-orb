@@ -2,6 +2,7 @@ version: 2.1
 description: Run katalon studio test using cirlce-ci 
 
 orbs:
+  codecov: circleci/codecov-clojure@0.0.4
   katalon_orb:
     executors:
       katalon_orb_executor:
@@ -17,4 +18,7 @@ orbs:
           katalon_command:
             type: string
         steps:
+          - checkout
           - run: katalon-execute.sh <<parameters.katalon_command>>
+          - codecov/upload:
+              path: ./report      
