@@ -9,9 +9,9 @@ Circleci orb create katalon-orb/katalonstudio
 
 
 # How to publish orb 
-circleci orb publish katalon-orb.yml katalon-orb/katalonstudio@orb:1.0
+circleci orb publish katalon-orb.yml katalon-orb/katalonstudio@dev:first
 
 
 # Pull soure
 
-circleci orb source katalon-orb/katalonstudio@orb:1.0
+circleci orb source katalon-orb/katalonstudio@dev.first
