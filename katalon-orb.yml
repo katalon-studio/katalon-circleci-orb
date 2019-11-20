@@ -8,26 +8,26 @@ orbs:
         parameters:
           version:
             type: string
-            default: "6.3"
+            default: "7.0"
         docker:
           - image: katalonstudio/katalon:<<parameters.version>>
   commands:
-      katalon_orb_command:
+      katalon_command:
         parameters:
-          katalon_command:
+          katalon_param:
             type: string
         steps:
-          - run: katalon-execute.sh <<parameters.katalon_command>>
+          - run: katalon-execute.sh <<parameters.katalon_param>>
   jobs:
         katjob:
             executor: katalon_orb_executor
             steps:
               - checkout
-              - katalon_orb_command
+              - katalon_command
               - codecov/upload:
                   path: ./report/*
 workflows:
   build:
     jobs:
       - katalonstudio/katjob:
-          katalon_command: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
+          katalon_param: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
