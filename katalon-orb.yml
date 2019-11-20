@@ -19,12 +19,12 @@ orbs:
         steps:
           - run: katalon-execute.sh <<parameters.katalon_param>>
   jobs:
-        katjob:
-            executor: katalon_orb_executor
-            steps:
-              - checkout
-              - katalon_command
-              - codecov/upload:
+      katjob:
+          executor: katalon_orb_executor
+          steps:
+            - checkout
+            - katalon_command
+            - codecov/upload:
                   path: ./report/*
 workflows:
   build:
