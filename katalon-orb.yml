@@ -10,7 +10,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        katalonstudio: katalon-orb-test/katalonstudio@0.0.27
+        katalonstudio: katalon-orb-test/katalonstudio@0.0.29
       workflows:
        build:
         jobs:
