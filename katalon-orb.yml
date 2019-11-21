@@ -31,6 +31,9 @@ jobs:
               type: string
           steps:
             - checkout
+            - run:
+                command: |-
+                  ls -la
             - katalon_command:
                 katalon_param: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
             - codecov/upload:
