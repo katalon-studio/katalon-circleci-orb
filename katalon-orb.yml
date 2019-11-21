@@ -16,7 +16,7 @@ commands:
         parameters:
           katalon_param:
             type: string
-            value: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
+            default: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
         steps:
           - run: katalon-execute.sh <<parameters.katalon_param>>
 jobs:
