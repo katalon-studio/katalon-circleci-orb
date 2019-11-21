@@ -16,7 +16,7 @@ commands:
         parameters:
           katalon_param:
             type: string
-            default: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
+            default: ''
         steps:
           - run: katalon-execute.sh <<parameters.katalon_param>>
 jobs:
@@ -30,6 +30,9 @@ jobs:
 workflows:
   build:
     jobs:
-      - katalonstudio/katjob:
-          version: "7.0"
-          katalon_param: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
+        - katalonstudio/katjob:
+            executor: katalonstudio/katalon_orb_executor
+            steps:
+                    - checkkout
+                    - katalonstudio/katalon_command:
+                        katalon_param: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
