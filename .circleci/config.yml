@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-    katalonstudio: katalon-orb-test/katalonstudio@0.0.11
+    katalonstudio: katalon-orb-test/katalonstudio@0.0.16
 
 workflows:
     "katalon workflow":
