@@ -10,13 +10,13 @@ examples:
     usage:
       version: 2.1
       orbs:
-        katalonstudio: katalon/katalonstudio@0.0.32
+        katalonstudio: katalon/katalonstudio@0.0.33
       workflows:
        build:
         jobs:
             - katalonstudio/katjob:
                     version: "latest"
-                    katalon_param: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
+                    katalon_param: "-browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test Suites/TS_RegressionTest'"
 
 executors:
       katalon_orb_executor:
