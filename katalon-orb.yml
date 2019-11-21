@@ -3,7 +3,7 @@ description: Run katalon studio test using cirlce-ci
 
 orbs:
   codecov: circleci/codecov-clojure@0.0.4
-  executors:
+executors:
       katalon_orb_executor:
         parameters:
           version:
@@ -11,14 +11,14 @@ orbs:
             default: "7.0"
         docker:
           - image: katalonstudio/katalon:<<parameters.version>>
-  commands:
+commands:
       katalon_command:
         parameters:
           katalon_param:
             type: string
         steps:
           - run: katalon-execute.sh <<parameters.katalon_param>>
-  jobs:
+jobs:
       katjob:
           executor: katalon_orb_executor
           steps:
