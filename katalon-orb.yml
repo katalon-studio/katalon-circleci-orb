@@ -21,7 +21,9 @@ commands:
           - run: katalon-execute.sh <<parameters.katalon_param>>
 jobs:
       katjob:
-          executor: katalon_orb_executor
+          executor: 
+            name: katalon_orb_executor
+            version: "7.0"
           steps:
             - checkout
             - katalon_command
