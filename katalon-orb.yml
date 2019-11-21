@@ -4,6 +4,20 @@ description: Run katalon studio test using cirlce-ci
 orbs:
   codecov: circleci/codecov-clojure@0.0.4
 
+examples:
+  simple_greeting:
+    description: Greeting a user named Anna
+    usage:
+      version: 2.1
+      orbs:
+        katalonstudio: katalon-orb-test/katalonstudio@0.0.27
+      workflows:
+       build:
+        jobs:
+            - katalonstudio/katjob:
+                    version: "latest"
+                    katalon_param: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
+
 executors:
       katalon_orb_executor:
         parameters:
