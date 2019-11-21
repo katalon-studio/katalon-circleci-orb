@@ -3,8 +3,10 @@ orbs:
     katalonstudio: katalon-orb-test/katalonstudio@0.0.16
 
 workflows:
-    "katalon workflow":
-        jobs:
-            - katalonstudio/katjob:
-                version: "7.0"
-                katalon_param: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
+  build:
+    jobs:
+      - checkout
+      - katalonstudio/katalon_command:
+            katalon_param: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
+      - codecov/upload:
+            path: ./report/*
