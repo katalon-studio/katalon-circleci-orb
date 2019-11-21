@@ -21,12 +21,18 @@ commands:
           - run: katalon-execute.sh <<parameters.katalon_param>>
 jobs:
       katjob:
-          executor: 
-            name: katalon_orb_executor
-            version: "7.0"
+          executor: katalon_orb_executor
+          parameters:
+            version:
+              default: "7.0"
+              type: string
+            katalon_param:
+              default: ""
+              type: string
           steps:
             - checkout
-            - katalon_command
+            - katalon_command:
+                katalon_param: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
             - codecov/upload:
                   path: ./report/*
 workflows:
