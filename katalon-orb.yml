@@ -5,12 +5,12 @@ orbs:
   codecov: circleci/codecov-clojure@0.0.4
 
 examples:
-  simple_greeting:
-    description: Greeting a user named Anna
+  katalon_users:
+    description: This is the example to use katalon studio orbs 
     usage:
       version: 2.1
       orbs:
-        katalonstudio: katalon-orb-test/katalonstudio@0.0.29
+        katalonstudio: katalon-orb-test/katalonstudio@0.0.31
       workflows:
        build:
         jobs:
