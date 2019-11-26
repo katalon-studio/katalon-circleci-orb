@@ -10,8 +10,9 @@ pipeline {
       steps{ 
         /*
           sh "circleci orb publish katalon-orb.yml katalon/katalonstudio@dev:first"
-        */
           sh "circleci orb publish katalon-orb.yml katalon/katalonstudio@1.0.0"
+        */
+          sh "circleci orb publish increement katalon-orb.yml katalon/katalonstudion major"
       }
     }
     stage('Public to production'){
