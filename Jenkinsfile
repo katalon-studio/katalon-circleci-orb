@@ -15,10 +15,12 @@ pipeline {
           sh "circleci orb publish increment katalon-orb.yml katalon/katalonstudio major"
       }
     }
+    /*
     stage('Public to production'){
         steps{
           sh "circleci orb publish promote katalon/katalonstudio@dev:first patch"
         }
     }
+    */
   }
 }
