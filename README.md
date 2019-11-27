@@ -25,7 +25,7 @@ Example
 ```yaml
 version: 2.1
 orbs:
-    katalonstudio: katalon/katalonstudio@0.0.35
+    katalonstudio: katalon/katalonstudio@5.0.0
 workflows:
   build:
     jobs:
