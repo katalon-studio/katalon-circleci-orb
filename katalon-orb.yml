@@ -10,7 +10,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        katalonstudio: katalon/katalonstudio@9.0.0
+        katalonstudio: katalon/katalonstudio@12.0.0
       workflows:
        build:
         jobs:
@@ -37,7 +37,7 @@ commands:
             type: string
             default: ""
         steps:
-          - run: katalon-execute.sh <<parameters.katalon_param>> -apiKey=<<parameters.katalon_api_key>>
+          - run: katalon-execute.sh -apiKey=<<parameters.katalon_api_key>> <<parameters.katalon_param>> 
 jobs:
       katjob:
           executor: katalon_orb_executor
