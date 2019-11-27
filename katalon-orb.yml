@@ -6,7 +6,7 @@ orbs:
 
 examples:
   katalon_users:
-    description: This is the example to use katalon studio orbs ,Push your testcase code and change your katalon version and your parameter to test
+    description: This is the example to use katalon studio orbs ,Push your testcase code and change your katalon version and your parameter and api key to test
     usage:
       version: 2.1
       orbs:
@@ -16,6 +16,7 @@ examples:
         jobs:
             - katalonstudio/katjob:
                     version: "latest"
+                    katalon_api_key: 'xoxp-550062050934-548566637076-592438019847-dd6590e7cba406a1e846be1b'
                     katalon_param: "-browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test Suites/TS_RegressionTest'"
 
 executors:
