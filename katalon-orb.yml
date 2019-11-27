@@ -6,7 +6,7 @@ orbs:
 
 examples:
   katalon_users:
-    description: This is the example to use katalon studio orbs , you can change your katalon version and your parameter to test
+    description: This is the example to use katalon studio orbs ,Push your testcase code and change your katalon version and your parameter to test
     usage:
       version: 2.1
       orbs:
@@ -32,8 +32,11 @@ commands:
           katalon_param:
             type: string
             default: ''
+          katalon_api_key:
+            type: string
+            default: ''
         steps:
-          - run: katalon-execute.sh <<parameters.katalon_param>>
+          - run: katalon-execute.sh <<parameters.katalon_param>> -apiKey=<<parameters.katalon_api_key>>
 jobs:
       katjob:
           executor: katalon_orb_executor
