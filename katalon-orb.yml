@@ -10,7 +10,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        katalonstudio: katalon/katalonstudio@7.0.0
+        katalonstudio: katalon/katalonstudio@9.0.0
       workflows:
        build:
         jobs:
@@ -44,6 +44,9 @@ jobs:
           parameters:
             version:
               default: "latest"
+              type: string
+            katalon_api_key:
+              default: ""
               type: string
             katalon_param:
               default: ""
