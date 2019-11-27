@@ -16,7 +16,7 @@ examples:
         jobs:
             - katalonstudio/katjob:
                     version: "latest"
-                    katalon_api_key: 'xoxp-550062050934-548566637076-592438019847-dd6590e7cba406a1e846be1b'
+                    katalon_api_key: 'b279faef-0a5a-4aa5-8cff-ebc81466ac8c'
                     katalon_param: "-browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test Suites/TS_RegressionTest'"
 
 executors:
@@ -35,7 +35,7 @@ commands:
             default: ''
           katalon_api_key:
             type: string
-            default: ''
+            default: ""
         steps:
           - run: katalon-execute.sh <<parameters.katalon_param>> -apiKey=<<parameters.katalon_api_key>>
 jobs:
