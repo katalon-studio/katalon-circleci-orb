@@ -6,11 +6,11 @@ orbs:
 
 examples:
   katalon_users:
-    description: This is the example to use katalon studio orbs ,Push your testcase code and change your katalon version and your parameter and define enviroment variable KATALON_API_KEY to test
+    description: This is the example to use katalon studio orbs ,Push your testcase code and change your katalon version and your parameter and api key to test
     usage:
       version: 2.1
       orbs:
-        katalonstudio: katalon/katalonstudio@23.0.0
+        katalonstudio: katalon/katalonstudio@29.0.0
       workflows:
        build:
         jobs:
@@ -33,9 +33,8 @@ commands:
             type: string
             default: ''
           katalon_api_key:
-            type: env_var_name
-            description: "define enviroment variable from circleci setting ui"
-            default: KATALON_API_KEY
+            type: string
+            default: ""
         steps:
           - run: katalon-execute.sh -apiKey=<<parameters.katalon_api_key>> <<parameters.katalon_param>> 
 jobs:
@@ -46,9 +45,8 @@ jobs:
               default: "latest"
               type: string
             katalon_api_key:
-              default: KATALON_API_KEY
-              description: "define enviroment variables in circleci settings project"
               type: env_var_name
+              default: KATALON_API_KEY
             katalon_param:
               default: ""
               type: string
@@ -58,7 +56,7 @@ jobs:
                 command: |-
                   ls -la
             - katalon_command:
-                katalon_api_key: <<parameters.katalon_api_key>>
+                katalon_api_key: ${KATALON_API_KEY}
                 katalon_param: <<parameters.katalon_param>>
             - codecov/upload:
                   path: ./report/*
