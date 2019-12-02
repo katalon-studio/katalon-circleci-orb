@@ -10,7 +10,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        katalonstudio: katalon/katalonstudio@21.0.0
+        katalonstudio: katalon/katalonstudio@23.0.0
       workflows:
        build:
         jobs:
@@ -34,6 +34,7 @@ commands:
             default: ''
           katalon_api_key:
             type: env_var_name
+            description: "define enviroment variable from circleci setting ui"
             default: KATALON_API_KEY
         steps:
           - run: katalon-execute.sh -apiKey=<<parameters.katalon_api_key>> <<parameters.katalon_param>> 
@@ -46,6 +47,7 @@ jobs:
               type: string
             katalon_api_key:
               default: KATALON_API_KEY
+              description: "define enviroment variables in circleci settings project"
               type: env_var_name
             katalon_param:
               default: ""
