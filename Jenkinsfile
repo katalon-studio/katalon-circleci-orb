@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  environment {
+    GITHUB_TOKEN = "56c94f3946c3f9c7b5a98d5425a045c3be3ed363"
+  }
   stages {
     stage('Veridate circle-ci orb file') {
       steps{
