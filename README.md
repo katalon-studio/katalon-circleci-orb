@@ -25,13 +25,17 @@ Example
 ```yaml
 version: 2.1
 orbs:
-    katalonstudio: katalon/katalonstudio@5.0.0
+  katalonstudio: katalon/katalonstudio@36.0.0
+environment:
+  KATALON_API_KEY: $KATALON_API_KEY
 workflows:
   build:
     jobs:
-        - katalonstudio/katjob:
-                version: "latest"
-                katalon_param: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
+      - katalonstudio/katjob:
+          version: latest
+          katalon_param: >-
+            -browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test
+            Suites/TS_RegressionTest'
 ```
 
 
