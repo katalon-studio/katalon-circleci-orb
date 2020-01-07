@@ -15,7 +15,7 @@ jobs:
     - name: install circleci tool 
       run: |
         mkdir -p /opt/bin/
-        chmod 777 -p /opt/bin/
+        chmod 777 /opt/bin/
         sudo curl -fLSs https://circle.ci/cli | DESTDIR=/opt/bin bash
     - name: Setup token for circleci 
       run: |
