@@ -2,4 +2,8 @@
 mkdir ~/.circleci/
 echo "host: https://circleci.com" >  ~/.circleci/cli.yml
 echo "endpoint: graphql-unstable" >> ~/.circleci/cli.yml
-
+cat > ~/.circleci/cli.yml <<- "EOF"
+host: https://circleci.com
+endpoint: graphql-unstable
+token: $CIRCLECITOKEN"
+EOF
