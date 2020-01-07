@@ -8,7 +8,7 @@ phases:
     commands:
       - echo Entered the install phase...
       - apt-get update -y
-      - sudo curl -fLSs https://circle.ci/cli | bash
+      - curl -fLSs https://circle.ci/cli | bash
   build:
     commands:
       - echo "Setting Token"
