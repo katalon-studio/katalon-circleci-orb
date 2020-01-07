@@ -20,3 +20,7 @@ jobs:
         chmod +x setup-token.sh
         ./setup-token.sh
         echo "token: ${{ secrets.CIRCLECITOKEN }}" >> ~/.circleci/cli.yml
+    - name: validate circleci orb config 
+      run: |
+        circleci orb validate katalon-orb.yml
+
