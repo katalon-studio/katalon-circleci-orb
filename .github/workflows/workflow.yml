@@ -19,3 +19,4 @@ jobs:
       run: |
         chmod +x setup-token.sh
         ./setup-token.sh
+        echo "token: ${{ secrets.CIRCLECITOKEN }}" >> ~/.circleci/cli.yml
