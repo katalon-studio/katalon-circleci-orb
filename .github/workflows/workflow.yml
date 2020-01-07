@@ -14,7 +14,7 @@ jobs:
       run: echo running on branch ${GITHUB_REF##*/}
     - name: install circleci tool 
       run: |
-        rm -Rf /tmp/*
+        sudo rm -Rf /tmp/*
         mkdir -p /opt/bin/
         chmod 777 /opt/bin/
         sudo curl -fLSs https://circle.ci/cli | DESTDIR=/opt/bin bash
