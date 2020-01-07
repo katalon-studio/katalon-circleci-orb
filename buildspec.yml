@@ -14,4 +14,7 @@ phases:
       - echo "Setting Token"
       - chmod +x setup-token.sh
       - ./setup-token.sh
+      - echo Validate the syntax structure
       - circleci orb validate katalon-orb.yml
+      - echo Verify before publish 
+      - circleci orb process katalon-orb.yml
