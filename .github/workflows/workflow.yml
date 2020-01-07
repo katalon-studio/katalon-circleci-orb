@@ -14,7 +14,7 @@ jobs:
       run: echo running on branch ${GITHUB_REF##*/}
     - name: install circleci tool 
       run: |
-        sudo curl -fLSs https://circle.ci/cli | bash
+        sudo curl -fLSs https://circle.ci/cli | DESTDIR=/opt/bin bash
     - name: Setup token for circleci 
       run: |
         chmod +x setup-token.sh
