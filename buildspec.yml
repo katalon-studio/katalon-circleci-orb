@@ -18,3 +18,5 @@ phases:
       - circleci orb validate katalon-orb.yml
       - echo Verify before publish 
       - circleci orb process katalon-orb.yml
+      - echo Testing with sample circleci  which using orb
+      - circleci config process .circleci/config.yml
