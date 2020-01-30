@@ -20,6 +20,7 @@ phases:
       - circleci orb process katalon-orb.yml
       - echo Testing with sample circleci  which using orb
       - circleci config process .circleci/config.yml
+      - cat ~/.circleci/cli.yml 
   post_build:
     commands:
       - circleci orb publish increment katalon-orb.yml katalon/katalon-studio major
