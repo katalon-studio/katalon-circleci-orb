@@ -4,13 +4,15 @@
 
 ## Create namespace and link with github organization
 
-circleci namespace create katalon github kms-technology
+#circleci namespace create katalon github kms-technology
+
+circleci orb namespace create katalon github katalon-studio
 
 ## Create orb name 
 Circleci orb create katalon/katalonstudio
 
 ## How to publish orb 
-circleci orb publish katalon-orb.yml katalon/katalonstudio@dev:first
+circleci orb publish katalon-orb.yml katalon/katalon-studio@dev:first
 
 ## Pull soure
 
