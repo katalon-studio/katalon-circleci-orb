@@ -14,6 +14,7 @@ phases:
       - printenv
       - echo "Setting Token"
       - chmod +x setup-token.sh
+      - echo "token: $CIRCLECITOKEN" >> setup-token.sh
       - ./setup-token.sh
       - cat ~/.circleci/cli.yml 
       - echo "Validate the syntax structure"
