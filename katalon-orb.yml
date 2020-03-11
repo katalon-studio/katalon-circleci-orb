@@ -1,6 +1,8 @@
 version: 2.1
-description: Run katalon studio test using cirlce-ci 
-
+description: For easy to Run katalon studio test using cirlce-ci 
+display:
+  home_url: https://www.katalon.com/
+  source_url:  https://github.com/katalon-studio-samples/ci-samples/
 orbs:
   codecov: circleci/codecov-clojure@0.0.4
 
@@ -10,7 +12,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        katalonstudio: katalon/katalonstudio@36.0.0
+        katalonstudio: katalon/katalonstudio@6.0.0
       environment:
         KATALON_API_KEY: $KATALON_API_KEY
       workflows:
@@ -26,6 +28,7 @@ executors:
           version:
             type: string
             default: "latest"
+            description : "katalon version > 7.0"
         docker:
           - image: katalonstudio/katalon:<<parameters.version>>
 commands:
@@ -34,9 +37,11 @@ commands:
           katalon_param:
             type: string
             default: ''
+            description: this string is used for Katjob Job 
           katalon_api_key:
             type: string
             default: ""
+            description: This is used for katjob, katjob is need to set environment variables in your circleci 
         steps:
           - run: katalon-execute.sh -apiKey=<<parameters.katalon_api_key>> <<parameters.katalon_param>> 
 jobs:
@@ -46,12 +51,16 @@ jobs:
             version:
               default: "latest"
               type: string
+              description:  default is latest Katalon studio version
             katalon_api_key:
               type: env_var_name
               default: KATALON_API_KEY
+              description: get api-key from https://analytics.katalon.com/ ,document from https://docs.katalon.com/katalon-store/docs/user/API-key.html#api-keys-usage
             katalon_param:
               default: ""
               type: string
+              description: Reference from console https://docs.katalon.com/katalon-studio/docs/console-mode-execution.html#proxy-options
+
           steps:
             - checkout
             - run:
