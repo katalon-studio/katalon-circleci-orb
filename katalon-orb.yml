@@ -12,7 +12,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        katalonstudio: katalon/katalonstudio@8.0.0
+        katalonstudio: katalon/katalonstudio@9.0.0
       environment:
         KATALON_API_KEY: $KATALON_API_KEY
       workflows:
@@ -24,6 +24,7 @@ examples:
 
 executors:
       katalon_orb_executor:
+        description: Ubuntu based docker katalon studio app
         parameters:
           version:
             type: string
@@ -33,6 +34,7 @@ executors:
           - image: katalonstudio/katalon:<<parameters.version>>
 commands:
       katalon_command:
+        description:  Define structure of katalon command with 2 parts API Key and katalo parameter
         parameters:
           katalon_param:
             type: string
@@ -46,6 +48,7 @@ commands:
           - run: katalon-execute.sh -apiKey=<<parameters.katalon_api_key>> <<parameters.katalon_param>> 
 jobs:
       katjob:
+          description: Katalon CI/CD job to run katalon command in environment katalon executor 
           executor: katalon_orb_executor
           parameters:
             version:
@@ -79,5 +82,7 @@ workflows:
             steps:
                     - checkkout
                     - katalonstudio/katalon_command:
+                        katalon_api_key: ${KATALON_API_KEY}
                         version: "latest"
-                        katalon_param: '${katalon_param}'
+                        katalon_param: <<parameters.katalon_param>>
+                        
