@@ -10,28 +10,28 @@ executors:
       description: Ubuntu based Docker Image for Katalon Studio
       parameters:
         version:
-          description: "Specifying the Katalon Studio version your tests will be executed with (Only version 7+ supported)"
+          description: "Specifying the Katalon Studio version your tests will be executed with (only version 7+ supported)"
           type: string
           default: 'latest'
       docker:
         - image: katalonstudio/katalon:<<parameters.version>>
 commands:
     execute_test:
-      description:  Defining command arguments to execute your Katalon tests with API Key required
+      description: 'Defining command arguments to execute your Katalon tests with API Key required'
       parameters:
           kat_arguments:
-            description: The defined command arguments used for executing your Katalon tests
+            description: 'The defined command arguments used for executing your Katalon tests'
             type: string
             default: ""
           API_KEY:
-            description: The API KEY used for authentication with Katalon Server
+            description: 'The API KEY used for authentication with Katalon Server'
             type: string
             default: ""
         steps:
           - run: katalon-execute.sh -apiKey=<<parameters.API_KEY>> <<parameters.kat_arguments>> 
 jobs:
     run:
-      description: Executing your Katalon tests in the Katalon Studio's Docker Image with the provided command arguments 
+      description: 'Executing your Katalon tests in the Katalon Studio's Docker Image with the provided command arguments' 
       executor: default
       parameters:
         version:
@@ -39,11 +39,11 @@ jobs:
           default: "latest"
           type: string
         API_KEY:
-          description: The API KEY used for authentication with the Katalon Server. Learn how to get the API KEY via https://docs.katalon.com/katalon-analytics/docs/ka-api-key.html.
+          description: 'The API KEY used for authentication with the Katalon Server. Learn how to get the API KEY via https://docs.katalon.com/katalon-analytics/docs/ka-api-key.html.'
           default: API_KEY
           type: env_var_name
         kat_arguments:
-          description: The command arguments used for executing the tests. See the supported Command Syntax via https://docs.katalon.com/katalon-studio/docs/console-mode-execution.html.
+          description: 'The command arguments used for executing the tests. See the supported Command Syntax via https://docs.katalon.com/katalon-studio/docs/console-mode-execution.html.'
           default: ""
           type: string
       steps:
@@ -71,7 +71,7 @@ orbs:
 
 examples:
     execute_sample_test:
-      description: Executing a test suite with the latest version of Katalon Studio
+      description: 'Executing a test suite with the latest version of Katalon Studio'
       usage:
         version: 2.1
         orbs:
