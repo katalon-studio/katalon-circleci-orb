@@ -5,57 +5,74 @@ display:
   home_url: https://docs.katalon.com/katalon-studio/docs/integration-circleci.html
   source_url: https://github.com/katalon-studio/katalon-circleci-orb
 
+orbs:
+examples:
+  execute_sample_test:
+    description: Executing a test suite with the latest version of Katalon Studio
+    usage:
+      version: 2.1
+      orbs:
+        katalonstudio: katalon/katalonstudio@19.0.0
+      environment:
+        API_KEY: $API_KEY
+      workflows:
+       build:
+        jobs:
+            - katalonstudio/katjob:
+                    version: "latest"
+                    kat_arguments: "-browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test Suites/TS_RegressionTest'"
+
 executors:
-    default:
-      description: Ubuntu based Docker Image for Katalon Studio
-      parameters:
-        version:
-          description: "Specifying the Katalon Studio version your tests will be executed with (only version 7+ supported)"
-          type: string
-          default: 'latest'
-      docker:
-        - image: katalonstudio/katalon:<<parameters.version>>
-commands:
-    execute_test:
-        description: 'Defining command arguments to execute your Katalon tests with API Key required'
-        parameters:
-            kat_arguments:
-              description: 'The defined command arguments used for executing your Katalon tests'
-              type: string
-              default: ""
-            API_KEY:
-              description: 'The API KEY used for authentication with Katalon Server'
-              type: string
-              default: ""
-            steps:
-              - run: katalon-execute.sh -apiKey=<<parameters.API_KEY>> <<parameters.kat_arguments>> 
-jobs:
-    run:
-        description: 'Executing your Katalon tests in the Katalon Studio's Docker Image with the provided command arguments' 
-        executor: default
+      default:
+        description: Ubuntu based Docker Image for Katalon Studio
         parameters:
           version:
-            description: "Specifying the Katalon Studio version your tests will be executed with (Only version 7+ supported). By default, it's the latest version."
+            description : "Specifying the Katalon Studio version your tests will be executed with (Only version 7+ supported)"
+            type: string
             default: "latest"
-            type: string
-          API_KEY:
-            description: 'The API KEY used for authentication with the Katalon Server. Learn how to get the API KEY via https://docs.katalon.com/katalon-analytics/docs/ka-api-key.html.'
-            default: API_KEY
-            type: env_var_name
+        docker:
+          - image: katalonstudio/katalon:<<parameters.version>>
+commands:
+      execute:
+        description:  Defining command arguments to execute your Katalon tests with API Key required
+        parameters:
           kat_arguments:
-            description: 'The command arguments used for executing the tests. See the supported Command Syntax via https://docs.katalon.com/katalon-studio/docs/console-mode-execution.html.'
-            default: ""
+            description: The defined command arguments used for executing your Katalon tests
             type: string
+            default: ""
+          API_KEY:
+            description: The API KEY used for authentication with Katalon Server
+            type: string
+            default: ""
         steps:
-          - checkout
-          - run:
-              command: |-
-                ls -la
-          - execute_test:
-              API_KEY: ${API_KEY}
-              kat_arguments: <<parameters.kat_arguments>>
-          - store_artifacts:
-              path: report
+          - run: katalon-execute.sh -apiKey=<<parameters.API_KEY>> <<parameters.kat_arguments>> 
+jobs:
+      run:
+          description: Executing your Katalon tests in the Katalon Studio's Docker Image with the provided command arguments 
+          executor: default
+          parameters:
+            version:
+              description: "Specifying the Katalon Studio version your tests will be executed with (Only version 7+ supported). By default, it's the latest version."
+              default: "latest"
+              type: string
+            API_KEY:
+              description: The API KEY used for authentication with the Katalon Server. Learn how to get the API KEY via https://docs.katalon.com/katalon-analytics/docs/ka-api-key.html.
+              default: API_KEY
+              type: env_var_name
+            kat_arguments:
+              description: The command arguments used for executing the tests. See the supported Command Syntax via https://docs.katalon.com/katalon-studio/docs/console-mode-execution.html.
+              default: ""
+              type: string
+          steps:
+            - checkout
+            - run:
+                command: |-
+                  ls -la
+            - execute:
+                API_KEY: ${API_KEY}
+                kat_arguments: <<parameters.kat_arguments>>
+            - store_artifacts:
+                  path: report
 workflows:
   build:
     jobs:
@@ -63,24 +80,6 @@ workflows:
             executor: katalonstudio/default
             steps:
               - checkkout
-              - katalonstudio/execute_test:
+              - katalonstudio/execute:
                   version: "latest"
                   kat_arguments: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
-
-orbs:
-
-examples:
-    execute_sample_test:
-      description: 'Executing a test suite with the latest version of Katalon Studio'
-      usage:
-        version: 2.1
-        orbs:
-          katalonstudio: katalon/katalonstudio@19.0.0
-        environment:
-          API_KEY: $API_KEY
-        workflows:
-        build:
-          jobs:
-              - katalonstudio/run:
-                      version: "latest"
-                      kat_arguments: "-browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test Suites/TS_RegressionTest'"
