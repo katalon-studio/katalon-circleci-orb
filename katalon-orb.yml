@@ -1,7 +1,7 @@
 version: 2.1
 description: >
   Execute Katalon tests with your CircleCI CI/CD pipeline easily with the Katalon orb
-display:`
+display:
   home_url: https://docs.katalon.com/katalon-studio/docs/integration-circleci.html
   source_url: https://github.com/katalon-studio/katalon-circleci-orb
 
