@@ -8,6 +8,7 @@ phases:
     commands:
       - echo Entered the install phase...
       - apt-get update -y
+      - apt-get install libcurl
       - curl -fLSs https://circle.ci/cli | bash
   build:
     commands:
