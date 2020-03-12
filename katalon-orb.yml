@@ -1,8 +1,8 @@
 version: 2.1
 description: For easy to Run katalon studio test using cirlce-ci 
 display:
-  home_url: https://www.katalon.com/
-  source_url:  https://github.com/katalon-studio-samples/ci-samples/
+  home_url: https://docs.katalon.com/katalon-studio/docs/integration-circleci.html
+  source_url: https://github.com/katalon-studio/katalon-circleci-orb
 orbs:
   
 examples:
