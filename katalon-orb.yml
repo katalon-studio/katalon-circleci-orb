@@ -1,86 +1,87 @@
 version: 2.1
-description: For easy to Run katalon studio test using cirlce-ci 
+description: >
+ Execute Katalon tests with your CircleCI CI/CD pipeline easily with the Katalon orb
 display:
   home_url: https://docs.katalon.com/katalon-studio/docs/integration-circleci.html
   source_url: https://github.com/katalon-studio/katalon-circleci-orb
+  api_url: https://docs.katalon.com/katalon-analytics/docs/ka-api-key.html
 orbs:
-  
 examples:
-  katalon_users:
-    description: This is the example to use katalon studio orbs ,Push your testcase code and change your katalon version and your parameter and api key to test
+  execute_test:
+    description: Executing a test suite named TS_RegressionTest with the latest Katalon Studio version
     usage:
       version: 2.1
       orbs:
         katalonstudio: katalon/katalonstudio@12.0.0
       environment:
-        KATALON_API_KEY: $KATALON_API_KEY
+        API_KEY: $API_KEY
       workflows:
        build:
         jobs:
             - katalonstudio/test:
                     version: "latest"
-                    ks_param: "-browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test Suites/TS_RegressionTest'"
+                    command: "-browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test Suites/TS_RegressionTest'"
 
 executors:
-      katalon_orb_executor:
-        description: Ubuntu based docker katalon studio app
+      default:
+        description: Ubuntu based Docker Image for Katalon Studio
         parameters:
           version:
             type: string
             default: "latest"
-            description : "katalon version > 7.0"
+            description : "Only Katalon Studio 7+ supported"
         docker:
           - image: katalonstudio/katalon:<<parameters.version>>
 commands:
-      ks_command:
-        description:  Define structure of katalon command with 2 parts API Key and katalo parameter
+      command_execute_test:
+        description:  Defining command arguments to execute your Katalon tests with API Key required
         parameters:
-          ks_param:
-            type: string
-            default: ''
-            description: this string is used for Katjob Job 
-          ks_api_key:
+          COMMAND_ARGUMENTS:
             type: string
             default: ""
-            description: This is used for katjob, katjob is need to set environment variables in your circleci 
+            description: The defined command arguments used for executing your Katalon tests
+          API_KEY:
+            type: string
+            default: ""
+            description: The API KEY used for authentication with Katalon Server
         steps:
-          - run: katalon-execute.sh -apiKey=<<parameters.ks_api_key>> <<parameters.ks_param>> 
+          - run: katalon-execute.sh -apiKey=<<parameters.API_KEY>> <<parameters.COMMAND_ARGUMENTS>> 
 jobs:
       test:
-          description: Katalon CI/CD job to run katalon command in environment katalon executor 
-          executor: katalon_orb_executor
+          description: Executing your Katalon tests with the defined command arguments in the Docker Image for Katalon Studio
+          executor: default
           parameters:
             version:
               default: "latest"
               type: string
               description:  default is latest Katalon studio version
-            ks_api_key:
+            API_KEY:
               type: env_var_name
-              default: KATALON_API_KEY
-              description: get api-key from https://analytics.katalon.com/ ,document from https://docs.katalon.com/katalon-store/docs/user/API-key.html#api-keys-usage
-            ks_param:
+              default: API_KEY
+              description: The API KEY used for authentication with Katalon Server. Learn [how to get the API KEY](https://docs.katalon.com/katalon-analytics/docs/ka-api-key.html).
+            COMMAND_ARGUMENTS:
               default: ""
               type: string
-              description: Reference from console https://docs.katalon.com/katalon-studio/docs/console-mode-execution.html#proxy-options
+              description: The defined command arguments used for executing your Katalon tests. See [Command Syntax](https://docs.katalon.com/katalon-studio/docs/console-mode-execution.html).
 
           steps:
             - checkout
             - run:
                 command: |-
                   ls -la
-            - ks_command:
-                ks_api_key: ${KATALON_API_KEY}
-                ks_param: <<parameters.ks_param>>
+            - command_execute_test:
+                API_KEY: ${API_KEY}
+                COMMAND_ARGUMENTS: <<parameters.COMMAND_ARGUMENTS>>
             - store_artifacts:
                   path: report
 workflows:
   build:
     jobs:
         - katalonstudio/test:
-            executor: katalonstudio/katalon_orb_executor
+            executor: katalonstudio/default
             steps:
                     - checkkout
-                    - katalonstudio/ks_command:
+                    - katalonstudio/command_execute_test:
                         version: "latest"
-                        katalon_param: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
+                        command_execute_test: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
                         
