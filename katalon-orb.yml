@@ -4,23 +4,22 @@ display:
   home_url: https://www.katalon.com/
   source_url:  https://github.com/katalon-studio-samples/ci-samples/
 orbs:
-  codecov: circleci/codecov-clojure@0.0.4
-
+  
 examples:
   katalon_users:
     description: This is the example to use katalon studio orbs ,Push your testcase code and change your katalon version and your parameter and api key to test
     usage:
       version: 2.1
       orbs:
-        katalonstudio: katalon/katalonstudio@9.0.0
+        katalonstudio: katalon/katalonstudio@12.0.0
       environment:
         KATALON_API_KEY: $KATALON_API_KEY
       workflows:
        build:
         jobs:
-            - katalonstudio/katjob:
+            - katalonstudio/test:
                     version: "latest"
-                    katalon_param: "-browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test Suites/TS_RegressionTest'"
+                    ks_param: "-browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test Suites/TS_RegressionTest'"
 
 executors:
       katalon_orb_executor:
@@ -33,21 +32,21 @@ executors:
         docker:
           - image: katalonstudio/katalon:<<parameters.version>>
 commands:
-      katalon_command:
+      ks_command:
         description:  Define structure of katalon command with 2 parts API Key and katalo parameter
         parameters:
-          katalon_param:
+          ks_param:
             type: string
             default: ''
             description: this string is used for Katjob Job 
-          katalon_api_key:
+          ks_api_key:
             type: string
             default: ""
             description: This is used for katjob, katjob is need to set environment variables in your circleci 
         steps:
-          - run: katalon-execute.sh -apiKey=<<parameters.katalon_api_key>> <<parameters.katalon_param>> 
+          - run: katalon-execute.sh -apiKey=<<parameters.ks_api_key>> <<parameters.ks_param>> 
 jobs:
-      katjob:
+      test:
           description: Katalon CI/CD job to run katalon command in environment katalon executor 
           executor: katalon_orb_executor
           parameters:
@@ -55,11 +54,11 @@ jobs:
               default: "latest"
               type: string
               description:  default is latest Katalon studio version
-            katalon_api_key:
+            ks_api_key:
               type: env_var_name
               default: KATALON_API_KEY
               description: get api-key from https://analytics.katalon.com/ ,document from https://docs.katalon.com/katalon-store/docs/user/API-key.html#api-keys-usage
-            katalon_param:
+            ks_param:
               default: ""
               type: string
               description: Reference from console https://docs.katalon.com/katalon-studio/docs/console-mode-execution.html#proxy-options
@@ -69,20 +68,19 @@ jobs:
             - run:
                 command: |-
                   ls -la
-            - katalon_command:
-                katalon_api_key: ${KATALON_API_KEY}
-                katalon_param: <<parameters.katalon_param>>
+            - ks_command:
+                ks_api_key: ${KATALON_API_KEY}
+                ks_param: <<parameters.ks_param>>
             - store_artifacts:
                   path: report
 workflows:
   build:
     jobs:
-        - katalonstudio/katjob:
+        - katalonstudio/test:
             executor: katalonstudio/katalon_orb_executor
             steps:
                     - checkkout
-                    - katalonstudio/katalon_command:
-                        katalon_api_key: ${KATALON_API_KEY}
+                    - katalonstudio/ks_command:
                         version: "latest"
-                        katalon_param: <<parameters.katalon_param>>
+                        katalon_param: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
                         
