@@ -18,7 +18,7 @@ examples:
       workflows:
        build:
         jobs:
-            - katalonstudio/execute_test:
+            - katalonstudio/katjob:
                     version: "latest"
                     COMMAND_ARGUMENTS: "-browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test Suites/TS_RegressionTest'"
 
@@ -47,7 +47,7 @@ commands:
         steps:
           - run: katalon-execute.sh -apiKey=<<parameters.API_KEY>> <<parameters.COMMAND_ARGUMENTS>> 
 jobs:
-    execute_test:
+      katjob:
           description: Executing your Katalon tests in the Katalon Studio's Docker Image with the provided command arguments 
           executor: default
           parameters:
@@ -76,7 +76,7 @@ jobs:
 workflows:
   build:
     jobs:
-        - katalonstudio/execute_test:
+        - katalonstudio/katjob:
             executor: katalonstudio/default
             steps:
               - checkkout
