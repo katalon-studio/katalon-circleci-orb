@@ -7,20 +7,21 @@ display:
 
 orbs:
 examples:
-  execute_test:
+  execute_sample_test:
     description: Executing a test suite with the latest version of Katalon Studio
     usage:
       version: 2.1
       orbs:
-        katalonstudio: katalon/katalonstudio@12.0.0
+        katalonstudio: katalon/katalonstudio@16.0.0
       environment:
         API_KEY: $API_KEY
       workflows:
        build:
         jobs:
-            - katalonstudio/test:
+            - katalonstudio/execute_test:
                     version: "latest"
-                    command: "-browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test Suites/TS_RegressionTest'"
+                    COMMAND_ARGUMENTS: "-browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test Suites/TS_RegressionTest'"
+
 executors:
       default:
         description: Ubuntu based Docker Image for Katalon Studio
@@ -47,7 +48,7 @@ commands:
           - run: katalon-execute.sh -apiKey=<<parameters.API_KEY>> <<parameters.COMMAND_ARGUMENTS>> 
 jobs:
     execute_test:
-          description: Executing your Katalon tests in the Docker Image for Katalon Studio with the provided command arguments 
+          description: Executing your Katalon tests in the Katalon Studio's Docker Image with the provided command arguments 
           executor: default
           parameters:
             version:
