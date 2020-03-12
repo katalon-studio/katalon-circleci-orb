@@ -18,7 +18,7 @@ examples:
       workflows:
        build:
         jobs:
-            - katalonstudio/katjob:
+            - katalonstudio/run:
                     version: "latest"
                     kat_arguments: "-browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test Suites/TS_RegressionTest'"
 
