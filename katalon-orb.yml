@@ -21,7 +21,6 @@ examples:
             - katalonstudio/test:
                     version: "latest"
                     command: "-browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test Suites/TS_RegressionTest'"
-
 executors:
       default:
         description: Ubuntu based Docker Image for Katalon Studio
@@ -47,7 +46,7 @@ commands:
         steps:
           - run: katalon-execute.sh -apiKey=<<parameters.API_KEY>> <<parameters.COMMAND_ARGUMENTS>> 
 jobs:
-      test:
+    execute_test:
           description: Executing your Katalon tests in the Docker Image for Katalon Studio with the provided command arguments 
           executor: default
           parameters:
@@ -56,7 +55,7 @@ jobs:
               default: "latest"
               type: string
             API_KEY:
-              description: The API KEY used for authentication with Katalon Server. Learn how to get the API KEY via https://docs.katalon.com/katalon-analytics/docs/ka-api-key.html).
+              description: The API KEY used for authentication with the Katalon Server. Learn how to get the API KEY via https://docs.katalon.com/katalon-analytics/docs/ka-api-key.html.
               default: API_KEY
               type: env_var_name
             COMMAND_ARGUMENTS:
@@ -76,11 +75,11 @@ jobs:
 workflows:
   build:
     jobs:
-        - katalonstudio/test:
+        - katalonstudio/execute_test:
             executor: katalonstudio/default
             steps:
-                    - checkkout
-                    - katalonstudio/command_execute_test:
-                        version: "latest"
-                        command_execute_test: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
-                        
+              - checkkout
+              - katalonstudio/command_execute_test:
+                  version: "latest"
+                  COMMAND_ARGUMENTS: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
+                  
