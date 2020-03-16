@@ -12,13 +12,13 @@ examples:
     usage:
       version: 2.1
       orbs:
-        katalonstudio: katalon/katalonstudio@19.0.0
+        katalon-studio: katalon/katalon-studio@22.0.0
       environment:
-        API_KEY: $API_KEY
+        KATALON_API_KEY: $KATALON_API_KEY
       workflows:
        build:
         jobs:
-            - katalonstudio/run:
+            - katalon-studio/run:
                     version: "latest"
                     command_arguments: "-browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test Suites/TS_RegressionTest'"
 
@@ -40,12 +40,12 @@ commands:
             description: The defined command arguments used for executing your Katalon tests
             type: string
             default: ""
-          API_KEY:
+          KATALON_API_KEY:
             description: The API KEY used for authentication with Katalon Server
             type: string
             default: ""
         steps:
-          - run: katalon-execute.sh -apiKey=<<parameters.API_KEY>> <<parameters.command_arguments>> 
+          - run: katalon-execute.sh -apiKey=$<<parameters.KATALON_API_KEY>> <<parameters.command_arguments>> 
 jobs:
       run:
           description: Executing your Katalon tests in the Katalon Studio's Docker Image with the provided command arguments 
@@ -55,9 +55,9 @@ jobs:
               description: "Specifying the Katalon Studio version your tests will be executed with (Only version 7+ supported). By default, it's the latest version."
               default: "latest"
               type: string
-            API_KEY:
+            KATALON_API_KEY:
               description: The API KEY used for authentication with the Katalon Server. Learn how to get the API KEY via https://docs.katalon.com/katalon-analytics/docs/ka-api-key.html.
-              default: API_KEY
+              default: KATALON_API_KEY
               type: env_var_name
             command_arguments:
               description: The command arguments used for executing the tests. See the supported Command Syntax via https://docs.katalon.com/katalon-studio/docs/console-mode-execution.html.
@@ -69,17 +69,17 @@ jobs:
                 command: |-
                   ls -la
             - execute:
-                API_KEY: ${API_KEY}
+                KATALON_API_KEY: ${KATALON_API_KEY}
                 command_arguments: <<parameters.command_arguments>>
             - store_artifacts:
                   path: report
 workflows:
   build:
     jobs:
-        - katalonstudio/run:
-            executor: katalonstudio/default
+        - katalon-studio/run:
+            executor: katalon-studio/default
             steps:
               - checkkout
-              - katalonstudio/execute:
+              - katalon-studio/execute:
                   version: "latest"
                   command_arguments: '-browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest"'
