@@ -39,11 +39,11 @@ commands:
             type: string
             default: ""
           KATALON_API_KEY:
-            description: The API KEY used for authentication with Katalon Server
-            type: string
+            description: The name of the environment variable containing the API key used for authentication with Katalon Server
+            type: env_var_name
             default: ""
         steps:
-          - run: katalon-execute.sh -apiKey=<<parameters.KATALON_API_KEY>> <<parameters.command_arguments>> 
+          - run: katalon-execute.sh -apiKey=$<<parameters.KATALON_API_KEY>> <<parameters.command_arguments>> 
 jobs:
       run:
           description: Executing your Katalon tests in the Katalon Studio's Docker Image with the provided command arguments 
@@ -67,7 +67,7 @@ jobs:
                 command: |-
                   ls -la
             - execute:
-                KATALON_API_KEY: ${KATALON_API_KEY}
+                KATALON_API_KEY: <<parameters.KATALON_API_KEY>>
                 command_arguments: <<parameters.command_arguments>>
             - store_artifacts:
                   path: report
