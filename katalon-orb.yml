@@ -42,7 +42,7 @@ commands:
             default: ""
           KATALON_API_KEY:
             description: The API KEY used for authentication with Katalon Server
-            type: string
+            type: env_var_name
             default: ${KATALON_API_KEY}
         steps:
           - run: katalon-execute.sh -apiKey=$<<parameters.KATALON_API_KEY>> <<parameters.command_arguments>> 
