@@ -12,9 +12,9 @@ examples:
     usage:
       version: 2.1
       orbs:
-        katalon-studio: katalon/katalon-studio@22.0.0
+        katalon-studio: katalon/katalon-studio@24.0.0
       environment:
-        KATALON_API_KEY: $KATALON_API_KEY
+        KATALON_API_KEY: ${KATALON_API_KEY}
       workflows:
        build:
         jobs:
@@ -43,7 +43,7 @@ commands:
           KATALON_API_KEY:
             description: The API KEY used for authentication with Katalon Server
             type: string
-            default: ""
+            default: ${KATALON_API_KEY}
         steps:
           - run: katalon-execute.sh -apiKey=$<<parameters.KATALON_API_KEY>> <<parameters.command_arguments>> 
 jobs:
@@ -57,7 +57,7 @@ jobs:
               type: string
             KATALON_API_KEY:
               description: The API KEY used for authentication with the Katalon Server. Learn how to get the API KEY via https://docs.katalon.com/katalon-analytics/docs/ka-api-key.html.
-              default: KATALON_API_KEY
+              default: ${KATALON_API_KEY}
               type: env_var_name
             command_arguments:
               description: The command arguments used for executing the tests. See the supported Command Syntax via https://docs.katalon.com/katalon-studio/docs/console-mode-execution.html.
