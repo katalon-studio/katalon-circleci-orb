@@ -57,7 +57,7 @@ jobs:
               type: string
             KATALON_API_KEY:
               description: The API KEY used for authentication with the Katalon Server. Learn how to get the API KEY via https://docs.katalon.com/katalon-analytics/docs/ka-api-key.html.
-              default: $KATALON_API_KEY
+              default: KATALON_API_KEY
               type: env_var_name
             command_arguments:
               description: The command arguments used for executing the tests. See the supported Command Syntax via https://docs.katalon.com/katalon-studio/docs/console-mode-execution.html.
