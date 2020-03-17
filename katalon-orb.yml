@@ -43,7 +43,9 @@ commands:
             type: env_var_name
             default: ""
         steps:
-          - run: katalon-execute.sh -apiKey=$<<parameters.KATALON_API_KEY>> <<parameters.command_arguments>> 
+          - run: 
+              name: Katalon Execute
+              command: katalon-execute.sh -apiKey=$<<parameters.KATALON_API_KEY>> <<parameters.command_arguments>> 
 jobs:
       run:
           description: Executing your Katalon tests in the Katalon Studio's Docker Image with the provided command arguments 
@@ -63,9 +65,6 @@ jobs:
               type: string
           steps:
             - checkout
-            - run:
-                command: |-
-                  ls -la
             - execute:
                 KATALON_API_KEY: <<parameters.KATALON_API_KEY>>
                 command_arguments: <<parameters.command_arguments>>
