@@ -4,7 +4,6 @@ description: >
 display:
   home_url: https://docs.katalon.com/katalon-studio/docs/integration-circleci.html
   source_url: https://github.com/katalon-studio/katalon-circleci-orb
-
 orbs:
 examples:
   execute_sample_test:
@@ -19,7 +18,6 @@ examples:
             - katalon-studio/run:
                     version: "latest"
                     command_arguments: "-browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test Suites/TS_RegressionTest'"
-
 executors:
       default:
         description: Ubuntu based Docker Image for Katalon Studio
