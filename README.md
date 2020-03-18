@@ -12,13 +12,11 @@ Example
 ```yaml
 version: 2.1
 orbs:
-  katalonstudio: katalon/katalonstudio@4.0.0
-environment:
-  KATALON_API_KEY: $KATALON_API_KEY
+  katalon-studio: katalon/katalonstudio@23.0.8
 workflows:
   build:
     jobs:
-      - katalonstudio/katjob:
+      - katalon-studio/run:
           version: latest
           katalon_param: >-
             -browserType='Chrome' -retry=0 -statusDelay=15 -testSuitePath='Test
