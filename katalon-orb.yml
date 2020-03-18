@@ -41,7 +41,6 @@ commands:
           KATALON_API_KEY:
             description: The name of the environment variable containing the API key used for authentication with Katalon Server
             type: env_var_name
-            default: ""
         steps:
           - run: 
               name: Katalon Execute
