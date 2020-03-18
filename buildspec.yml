@@ -25,4 +25,4 @@ phases:
 
   post_build:
     commands:
-      - circleci orb publish increment katalon-orb.yml katalon/katalon-studio major
+      - circleci orb publish increment katalon-orb.yml katalon/katalon-studio patch
