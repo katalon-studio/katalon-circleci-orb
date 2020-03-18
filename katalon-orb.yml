@@ -69,6 +69,8 @@ jobs:
                 command_arguments: <<parameters.command_arguments>>
             - store_artifacts:
                   path: report
+            - store_test_results:
+                  path: report
 workflows:
   build:
     jobs:
