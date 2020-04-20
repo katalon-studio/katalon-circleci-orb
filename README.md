@@ -5,7 +5,7 @@
 create .circleci/config.yml
 
 Find the latest version source : https://circleci.com/orbs/registry/orb/katalon/katalon-studio
-Change your Katalon paramter and setup your API Key and environment variables.  
+Change your Katalon parameter and setup your API Key and environment variables.  
 
 Example 
 
