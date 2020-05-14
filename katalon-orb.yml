@@ -12,7 +12,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        katalon-studio: katalon/katalon-studio@23.0.2
+        katalon-studio: katalon/katalon-studio@23.0.9 #replace 23.0.9 with the latest version of Katalon Orb
       workflows:
        build:
         jobs:
